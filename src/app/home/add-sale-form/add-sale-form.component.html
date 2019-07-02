@@ -6,7 +6,18 @@
 			</mat-form-field>
 
 			<mat-form-field>
-				<input matInput type="text" placeholder="Name" formControlName="name" />
+				<input
+					matInput
+					type="text"
+					placeholder="Name"
+					formControlName="name"
+					[matAutocomplete]="auto"
+				/>
+				<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+					<mat-option *ngFor="let option of filteredNames[i] | async" [value]="option">
+						{{ option }}
+					</mat-option>
+				</mat-autocomplete>
 			</mat-form-field>
 
 			<mat-form-field>
