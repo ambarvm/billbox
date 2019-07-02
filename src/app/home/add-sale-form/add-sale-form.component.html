@@ -1,0 +1,24 @@
+<form [formGroup]="saleForm">
+	<div formArrayName="products">
+		<div *ngFor="let product of productForms.controls; let i = index" [formGroupName]="i">
+			<mat-form-field>
+				<input matInput type="text" placeholder="Category" formControlName="category" />
+			</mat-form-field>
+
+			<mat-form-field>
+				<input matInput type="text" placeholder="Name" formControlName="name" />
+			</mat-form-field>
+
+			<mat-form-field>
+				<input matInput type="number" placeholder="Price" formControlName="price" />
+			</mat-form-field>
+
+			<button mat-icon-button color="warn" (click)="deleteProduct(i)">
+				<mat-icon>delete</mat-icon>
+			</button>
+		</div>
+	</div>
+	<button mat-raised-button color="primary" (click)="addProduct()">
+		<mat-icon>add</mat-icon> Add
+	</button>
+</form>
