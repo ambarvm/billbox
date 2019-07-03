@@ -47,8 +47,8 @@ export class AddSaleFormComponent implements OnInit {
 		this.ManageNameControl(this.productForms.length - 1);
 	}
 
-	deleteProduct(i: number) {
-		this.productForms.removeAt(i);
+	deleteProduct(index: number) {
+		this.productForms.removeAt(index);
 	}
 
 	private _filter(value: string): string[] {

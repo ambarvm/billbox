@@ -1,18 +1,14 @@
 <form [formGroup]="saleForm">
 	<div formArrayName="products">
 		<div *ngFor="let product of productForms.controls; let i = index" [formGroupName]="i">
-			<mat-form-field>
-				<input matInput type="text" placeholder="Category" formControlName="category" />
+			<mat-form-field appearance="standard">
+				<input matInput type="text" formControlName="category" />
+				<mat-label>Category</mat-label>
 			</mat-form-field>
 
-			<mat-form-field>
-				<input
-					matInput
-					type="text"
-					placeholder="Name"
-					formControlName="name"
-					[matAutocomplete]="auto"
-				/>
+			<mat-form-field appearance="standard">
+				<input matInput type="text" formControlName="name" [matAutocomplete]="auto" />
+				<mat-label>Name</mat-label>
 				<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
 					<mat-option *ngFor="let option of filteredNames[i] | async" [value]="option">
 						{{ option }}
@@ -20,8 +16,9 @@
 				</mat-autocomplete>
 			</mat-form-field>
 
-			<mat-form-field>
-				<input matInput type="number" placeholder="Price" formControlName="price" />
+			<mat-form-field appearance="standard">
+				<input matInput type="number" formControlName="price" />
+				<mat-label>Price</mat-label>
 			</mat-form-field>
 
 			<button mat-icon-button color="warn" (click)="deleteProduct(i)">
