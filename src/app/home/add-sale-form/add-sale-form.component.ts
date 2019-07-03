@@ -12,6 +12,7 @@ import { map, startWith } from 'rxjs/operators';
 export class AddSaleFormComponent implements OnInit {
 	saleForm: FormGroup;
 	names: string[] = ['Product One', 'Product Two', 'Product Three'];
+	categories: string[] = ['Category One', 'Category Two', 'Category Three'];
 	filteredNames: Observable<string[]>[] = [];
 
 	constructor(private fb: FormBuilder) {}

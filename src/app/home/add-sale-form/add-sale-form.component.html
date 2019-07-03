@@ -2,8 +2,12 @@
 	<div formArrayName="products">
 		<div *ngFor="let product of productForms.controls; let i = index" [formGroupName]="i">
 			<mat-form-field appearance="standard">
-				<input matInput type="text" formControlName="category" />
 				<mat-label>Category</mat-label>
+				<mat-select>
+					<mat-option *ngFor="let category of categories" [value]="category">
+						{{ category }}
+					</mat-option>
+				</mat-select>
 			</mat-form-field>
 
 			<mat-form-field appearance="standard">
