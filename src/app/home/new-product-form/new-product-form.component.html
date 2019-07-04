@@ -1,0 +1,25 @@
+<form [formGroup]="newProductForm" (ngSubmit)="submitHandler()">
+	<h2>Add New Product</h2>
+	<mat-form-field appearance="standard">
+		<mat-label>Category</mat-label>
+		<mat-select formControlName="category">
+			<mat-option *ngFor="let category of dataService.categories" [value]="category">
+				{{ category | titlecase }}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+
+	<mat-form-field appearance="standard">
+		<input matInput type="text" formControlName="name" />
+		<mat-label>Product Name</mat-label>
+	</mat-form-field>
+
+	<mat-form-field appearance="standard">
+		<input matInput type="number" formControlName="quantity" />
+		<mat-label>Initial Quantity</mat-label>
+	</mat-form-field>
+
+	<button type="submit" [disabled]="newProductForm.invalid" mat-raised-button color="primary">
+		Add Product
+	</button>
+</form>
