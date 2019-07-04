@@ -1,0 +1,12 @@
+<form [formGroup]="newCategoryForm" (ngSubmit)="submitHandler()">
+	<h2>Add New Category</h2>
+
+	<mat-form-field appearance="standard">
+		<input matInput type="text" formControlName="name" />
+		<mat-label>Category Name</mat-label>
+	</mat-form-field>
+
+	<button type="submit" color="primary" [disabled]="newCategoryForm.invalid" mat-raised-button>
+		Add Category
+	</button>
+</form>
