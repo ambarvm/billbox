@@ -1,18 +1,50 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import {
+	AngularFirestore,
+	AngularFirestoreCollection,
+	AngularFirestoreDocument
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
-import { Category } from '../interfaces';
+import { firestore } from 'firebase/app';
+
+import { Product, CategoryList } from '../interfaces';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class DataService {
-	categoriesCollection: AngularFirestoreCollection<Category>;
-	categoriesObservable: Observable<Category[]>;
+	categoriesDoc: AngularFirestoreDocument<CategoryList>;
+	categoriesObservable: Observable<CategoryList>;
+	categories: string[];
 
 	constructor(private afs: AngularFirestore) {
-		this.categoriesCollection = this.afs.collection('categories');
-		this.categoriesObservable = this.categoriesCollection.valueChanges();
+		this.categoriesDoc = this.afs.doc('general/categories');
+		this.categoriesObservable = this.categoriesDoc.valueChanges();
+		this.categoriesObservable.subscribe(val => (this.categories = val.list));
+	}
+
+	async addNewProduct(product: Product) {
+		try {
+			await this.afs
+				.collection('products')
+				.doc(`${product.category}-${product.name}`)
+				.set(product);
+		} catch (err) {
+			throw err;
+		}
+	}
+
+	async addNewCategory(category: string) {
+		try {
+			await this.afs
+				.collection('general')
+				.doc('categories')
+				.update({
+					list: firestore.FieldValue.arrayUnion(category)
+				});
+		} catch (err) {
+			throw err;
+		}
 	}
 }

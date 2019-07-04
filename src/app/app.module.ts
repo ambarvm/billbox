@@ -10,9 +10,11 @@ import { MaterialModule } from './material/material.module';
 
 import { AddSaleFormComponent } from './home/add-sale-form/add-sale-form.component';
 import { CoreModule } from './core/core.module';
+import { NewProductFormComponent } from './home/new-product-form/new-product-form.component';
+import { NewCategoryFormComponent } from './home/new-category-form/new-category-form.component';
 
 @NgModule({
-	declarations: [AppComponent, HomeComponent, AddSaleFormComponent],
+	declarations: [AppComponent, HomeComponent, AddSaleFormComponent, NewProductFormComponent, NewCategoryFormComponent],
 	imports: [
 		CoreModule,
 		BrowserModule,

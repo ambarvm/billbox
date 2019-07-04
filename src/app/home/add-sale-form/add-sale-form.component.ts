@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Form } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { DataService } from 'src/app/core/data.service';
-import { Category } from '../../interfaces';
 
 @Component({
 	selector: 'app-add-sale-form',
@@ -15,23 +14,21 @@ import { Category } from '../../interfaces';
 export class AddSaleFormComponent implements OnInit {
 	saleForm: FormGroup;
 	names: string[] = ['Product One', 'Product Two', 'Product Three'];
-	categories: Category[];
 	filteredNames: Observable<string[]>[] = [];
 
-	constructor(private fb: FormBuilder, private dataService: DataService) {}
+	constructor(private fb: FormBuilder, public dataService: DataService) {}
 
 	ngOnInit() {
 		this.saleForm = this.fb.group({
 			products: this.fb.array([])
 		});
-		this.dataService.categoriesObservable.subscribe(val => (this.categories = val));
 	}
 
 	public get productForms(): FormArray {
 		return this.saleForm.get('products') as FormArray;
 	}
 
-	ManageNameControl(index: number) {
+	nameFilterInit(index: number) {
 		this.filteredNames[index] = this.productForms
 			.at(index)
 			.get('name')
@@ -45,11 +42,12 @@ export class AddSaleFormComponent implements OnInit {
 		const prod = this.fb.group({
 			category: '',
 			name: '',
-			price: ''
+			price: '',
+			quantity: ''
 		});
 
 		this.productForms.push(prod);
-		this.ManageNameControl(this.productForms.length - 1);
+		this.nameFilterInit(this.productForms.length - 1);
 	}
 
 	deleteProduct(index: number) {

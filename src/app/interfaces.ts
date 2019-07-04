@@ -1,4 +1,9 @@
-export interface Category {
+export interface CategoryList {
+	list: string[];
+}
+
+export interface Product {
+	category: string;
 	name: string;
-	displayName: string;
+	quantity: number;
 }
