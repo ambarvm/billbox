@@ -35,3 +35,12 @@ body {
 	margin: 0;
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+mat-form-field,
+button {
+	margin-right: 12px !important;
+}
+
+mat-tab-body {
+	padding: 10px;
+}
