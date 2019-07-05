@@ -12,9 +12,10 @@ import { AddSaleFormComponent } from './home/add-sale-form/add-sale-form.compone
 import { CoreModule } from './core/core.module';
 import { NewProductFormComponent } from './home/new-product-form/new-product-form.component';
 import { NewCategoryFormComponent } from './home/new-category-form/new-category-form.component';
+import { StockComponent } from './home/stock/stock.component';
 
 @NgModule({
-	declarations: [AppComponent, HomeComponent, AddSaleFormComponent, NewProductFormComponent, NewCategoryFormComponent],
+	declarations: [AppComponent, HomeComponent, AddSaleFormComponent, NewProductFormComponent, NewCategoryFormComponent, StockComponent],
 	imports: [
 		CoreModule,
 		BrowserModule,
