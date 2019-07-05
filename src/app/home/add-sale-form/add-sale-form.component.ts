@@ -15,7 +15,7 @@ import { Product } from 'src/app/interfaces';
 export class AddSaleFormComponent implements OnInit {
 	saleForm: FormGroup;
 	productNames: string[] = ['Product One', 'Product Two', 'Product Three'];
-	filteredNames: Product[][] = [];
+	filteredProducts: Product[][] = [];
 
 	constructor(private fb: FormBuilder, public dataService: DataService) {}
 
@@ -41,7 +41,7 @@ export class AddSaleFormComponent implements OnInit {
 				.valueChanges.pipe(startWith('')),
 			this.productForms.at(index).get('category').valueChanges
 		).subscribe(value => {
-			this.filteredNames[index] = this._filter(value);
+			this.filteredProducts[index] = this._filter(value);
 		});
 	}
 
@@ -59,6 +59,7 @@ export class AddSaleFormComponent implements OnInit {
 
 	deleteProduct(index: number) {
 		this.productForms.removeAt(index);
+		this.filteredProducts[index] = [];
 	}
 
 	private _filter([name, category]): Product[] {
