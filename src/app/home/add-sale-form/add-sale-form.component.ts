@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
-import { Observable, combineLatest } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
 import { DataService } from 'src/app/core/data.service';
 import { Product } from 'src/app/interfaces';
@@ -47,10 +47,10 @@ export class AddSaleFormComponent implements OnInit {
 
 	addProduct() {
 		const prod = this.fb.group({
-			category: '',
-			name: '',
-			price: '',
-			quantity: ''
+			category: ['', Validators.required],
+			name: ['', Validators.required],
+			price: ['', [Validators.required, Validators.min(0)]],
+			quantity: ['', [Validators.required, Validators.min(1)]]
 		});
 
 		this.productForms.push(prod);
@@ -70,4 +70,6 @@ export class AddSaleFormComponent implements OnInit {
 				option.category === category && option.name.toLowerCase().includes(filterValue)
 		);
 	}
+
+	async submitHandler() {}
 }

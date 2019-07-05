@@ -37,6 +37,9 @@
 		</div>
 	</div>
 	<button mat-raised-button color="primary" (click)="addProduct()">
-		<mat-icon>add</mat-icon> Add
+		<mat-icon>add</mat-icon> Add Row
+	</button>
+	<button type="submit" mat-raised-button color="primary" [disabled]="saleForm.invalid">
+		Add Sale
 	</button>
 </form>
