@@ -14,8 +14,8 @@
 				<input matInput type="text" formControlName="name" [matAutocomplete]="auto" />
 				<mat-label>Product Name</mat-label>
 				<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-					<mat-option *ngFor="let option of filteredNames[i] | async" [value]="option">
-						{{ option | titlecase }}
+					<mat-option *ngFor="let option of filteredNames[i]" [value]="option.name">
+						{{ option.name | titlecase }}
 					</mat-option>
 				</mat-autocomplete>
 			</mat-form-field>

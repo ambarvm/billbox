@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Form } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, AbstractControl } from '@angular/forms';
 
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { DataService } from 'src/app/core/data.service';
+import { Product } from 'src/app/interfaces';
 
 @Component({
 	selector: 'app-add-sale-form',
@@ -13,8 +14,8 @@ import { DataService } from 'src/app/core/data.service';
 })
 export class AddSaleFormComponent implements OnInit {
 	saleForm: FormGroup;
-	names: string[] = ['Product One', 'Product Two', 'Product Three'];
-	filteredNames: Observable<string[]>[] = [];
+	productNames: string[] = ['Product One', 'Product Two', 'Product Three'];
+	filteredNames: Product[][] = [];
 
 	constructor(private fb: FormBuilder, public dataService: DataService) {}
 
@@ -28,14 +29,20 @@ export class AddSaleFormComponent implements OnInit {
 		return this.saleForm.get('products') as FormArray;
 	}
 
+	getCategoryAt(i: number) {
+		return this.productForms.at(i).get('category');
+	}
+
 	nameFilterInit(index: number) {
-		this.filteredNames[index] = this.productForms
-			.at(index)
-			.get('name')
-			.valueChanges.pipe(
-				startWith(''),
-				map(value => this._filter(value))
-			);
+		combineLatest(
+			this.productForms
+				.at(index)
+				.get('name')
+				.valueChanges.pipe(startWith('')),
+			this.productForms.at(index).get('category').valueChanges
+		).subscribe(value => {
+			this.filteredNames[index] = this._filter(value);
+		});
 	}
 
 	addProduct() {
@@ -54,9 +61,12 @@ export class AddSaleFormComponent implements OnInit {
 		this.productForms.removeAt(index);
 	}
 
-	private _filter(value: string): string[] {
-		const filterValue = value.toLowerCase();
+	private _filter([name, category]): Product[] {
+		const filterValue = name.toLowerCase();
 
-		return this.names.filter(option => option.toLowerCase().includes(filterValue));
+		return this.dataService.products.filter(
+			option =>
+				option.category === category && option.name.toLowerCase().includes(filterValue)
+		);
 	}
 }

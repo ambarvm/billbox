@@ -18,10 +18,16 @@ export class DataService {
 	categoriesObservable: Observable<CategoryList>;
 	categories: string[];
 
+	productsCollection: AngularFirestoreCollection<Product>;
+	products: Product[];
+
 	constructor(private afs: AngularFirestore) {
 		this.categoriesDoc = this.afs.doc('general/categories');
 		this.categoriesObservable = this.categoriesDoc.valueChanges();
 		this.categoriesObservable.subscribe(val => (this.categories = val.list));
+
+		this.productsCollection = afs.collection('products');
+		this.productsCollection.valueChanges().subscribe(val => (this.products = val));
 	}
 
 	async addNewProduct(product: Product) {
