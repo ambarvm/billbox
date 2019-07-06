@@ -43,7 +43,7 @@ export class DataService {
 
 	async addNewCategory(category: string) {
 		try {
-			await this.afs
+			this.afs
 				.collection('general')
 				.doc('categories')
 				.update({
