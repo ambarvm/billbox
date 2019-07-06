@@ -13,16 +13,25 @@ import { CoreModule } from './core/core.module';
 import { NewProductFormComponent } from './home/new-product-form/new-product-form.component';
 import { NewCategoryFormComponent } from './home/new-category-form/new-category-form.component';
 import { StockComponent } from './home/stock/stock.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-	declarations: [AppComponent, HomeComponent, AddSaleFormComponent, NewProductFormComponent, NewCategoryFormComponent, StockComponent],
+	declarations: [
+		AppComponent,
+		HomeComponent,
+		AddSaleFormComponent,
+		NewProductFormComponent,
+		NewCategoryFormComponent,
+		StockComponent
+	],
 	imports: [
 		CoreModule,
 		BrowserModule,
 		AppRoutingModule,
 		ReactiveFormsModule,
 		BrowserAnimationsModule,
-		MaterialModule
+		MaterialModule,
+		SharedModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

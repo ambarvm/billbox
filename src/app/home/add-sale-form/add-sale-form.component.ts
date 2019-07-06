@@ -6,6 +6,7 @@ import { startWith } from 'rxjs/operators';
 
 import { DataService } from 'src/app/core/data.service';
 import { Product } from 'src/app/interfaces';
+import { CustomValidators } from 'src/app/shared/custom-validators';
 
 @Component({
 	selector: 'app-add-sale-form',
@@ -48,7 +49,7 @@ export class AddSaleFormComponent implements OnInit {
 	addProduct() {
 		const prod = this.fb.group({
 			category: ['', Validators.required],
-			name: ['', Validators.required],
+			name: ['', [Validators.required, CustomValidators.productValidator(this.dataService)]],
 			price: ['', [Validators.required, Validators.min(0)]],
 			quantity: ['', [Validators.required, Validators.min(1)]]
 		});
