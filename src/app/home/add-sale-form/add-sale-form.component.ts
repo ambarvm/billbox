@@ -47,15 +47,12 @@ export class AddSaleFormComponent implements OnInit {
 	}
 
 	addProduct() {
-		const prod = this.fb.group(
-			{
-				category: ['', Validators.required],
-				name: ['', [Validators.required]],
-				price: ['', [Validators.required, Validators.min(0)]],
-				quantity: ['', [Validators.required, Validators.min(1)]]
-			},
-			{ validators: [CustomValidators.productValidator(this.dataService)] }
-		);
+		const prod = this.fb.group({
+			category: ['', Validators.required],
+			name: ['', [Validators.required, CustomValidators.productValidator(this.dataService)]],
+			price: ['', [Validators.required, Validators.min(0)]],
+			quantity: ['', [Validators.required, Validators.min(1)]]
+		});
 
 		this.productForms.push(prod);
 		this.nameFilterInit(this.productForms.length - 1);

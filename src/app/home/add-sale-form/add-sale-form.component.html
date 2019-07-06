@@ -3,7 +3,15 @@
 		<div *ngFor="let product of productForms.controls; let i = index" [formGroupName]="i">
 			<mat-form-field appearance="standard">
 				<mat-label>Category</mat-label>
-				<mat-select formControlName="category">
+				<mat-select
+					formControlName="category"
+					(selectionChange)="
+						productForms
+							.at(i)
+							.get('name')
+							.updateValueAndValidity()
+					"
+				>
 					<mat-option *ngFor="let category of dataService.categories" [value]="category">
 						{{ category | titlecase }}
 					</mat-option>
@@ -13,6 +21,9 @@
 			<mat-form-field appearance="standard">
 				<input matInput type="text" formControlName="name" [matAutocomplete]="auto" />
 				<mat-label>Product Name</mat-label>
+				<mat-error *ngIf="productForms.at(i).get('name').errors?.invalidProduct"
+					>Invalid Product</mat-error
+				>
 				<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
 					<mat-option *ngFor="let option of filteredProducts[i]" [value]="option.name">
 						{{ option.name | titlecase }}

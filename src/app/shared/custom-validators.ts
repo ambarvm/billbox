@@ -7,8 +7,9 @@ export class CustomValidators {
 			if (
 				dataService.products.some(
 					({ category, name }) =>
-						category === control.get('category').value &&
-						name === control.get('name').value
+						control.parent &&
+						category === control.parent.get('category').value &&
+						name === control.value
 				)
 			) {
 				return null;
