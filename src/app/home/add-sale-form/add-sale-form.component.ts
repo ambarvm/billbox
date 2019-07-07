@@ -15,23 +15,18 @@ import { CustomValidators } from 'src/app/shared/custom-validators';
 })
 export class AddSaleFormComponent implements OnInit {
 	saleForm: FormGroup;
-	productNames: string[] = ['Product One', 'Product Two', 'Product Three'];
 	filteredProducts: Product[][] = [];
 
 	constructor(private fb: FormBuilder, public dataService: DataService) {}
 
 	ngOnInit() {
 		this.saleForm = this.fb.group({
-			products: this.fb.array([])
+			products: this.fb.array([], Validators.required)
 		});
 	}
 
 	public get productForms(): FormArray {
 		return this.saleForm.get('products') as FormArray;
-	}
-
-	getCategoryAt(i: number) {
-		return this.productForms.at(i).get('category');
 	}
 
 	nameFilterInit(index: number) {
