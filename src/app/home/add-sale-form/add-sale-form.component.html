@@ -21,7 +21,13 @@
 			<mat-form-field appearance="standard">
 				<input matInput type="text" formControlName="name" [matAutocomplete]="auto" />
 				<mat-label>Product Name</mat-label>
-				<mat-error *ngIf="productForms.at(i).get('name').errors?.invalidProduct"
+				<mat-error
+					*ngIf="
+						productForms
+							.at(i)
+							.get('name')
+							.hasError('invalidProdct')
+					"
 					>Invalid Product</mat-error
 				>
 				<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
