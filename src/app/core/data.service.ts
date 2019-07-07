@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 
 import { firestore } from 'firebase/app';
 
-import { Product, CategoryList } from '../interfaces';
+import { Product, CategoryList, SaleData } from '../interfaces';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class DataService {
-	categoriesDoc: AngularFirestoreDocument<CategoryList>;
-	categoriesObservable: Observable<CategoryList>;
+	categoriesDoc: any;
+	categoriesObservable: Observable<any>;
 	categories: string[];
 
 	productsCollection: AngularFirestoreCollection<Product>;
@@ -32,10 +32,7 @@ export class DataService {
 
 	async addNewProduct(product: Product) {
 		try {
-			await this.afs
-				.collection('products')
-				.doc(`${product.category}-${product.name}`)
-				.set(product);
+			await this.productsCollection.doc(`${product.category}-${product.name}`).set(product);
 		} catch (err) {
 			throw err;
 		}
@@ -43,14 +40,24 @@ export class DataService {
 
 	async addNewCategory(category: string) {
 		try {
-			this.afs
-				.collection('general')
-				.doc('categories')
-				.update({
-					list: firestore.FieldValue.arrayUnion(category)
-				});
+			this.categoriesDoc.update({
+				list: firestore.FieldValue.arrayUnion(category)
+			});
 		} catch (err) {
 			throw err;
 		}
+	}
+
+	async executeSale(saleDataList: SaleData[]) {
+		const batch: firestore.WriteBatch = this.afs.firestore.batch();
+		saleDataList.forEach(saleData => {
+			const productRef: firestore.DocumentReference = this.productsCollection.doc(
+				`${saleData.category}-${saleData.name}`
+			).ref;
+			batch.update(productRef, {
+				quantity: firestore.FieldValue.increment(-saleData.quantity)
+			});
+		});
+		batch.commit();
 	}
 }

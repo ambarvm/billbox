@@ -72,5 +72,8 @@ export class AddSaleFormComponent implements OnInit {
 		);
 	}
 
-	async submitHandler() {}
+	async submitHandler() {
+		this.dataService.executeSale(this.saleForm.value.products);
+		console.log('sale form submitted: ', this.saleForm.value);
+	}
 }

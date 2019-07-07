@@ -7,3 +7,10 @@ export interface Product {
 	name: string;
 	quantity: number;
 }
+
+export interface SaleData {
+	category: string;
+	name: string;
+	price: number;
+	quantity: number;
+}

@@ -1,4 +1,4 @@
-<form [formGroup]="saleForm">
+<form [formGroup]="saleForm" (ngSubmit)="submitHandler()">
 	<div formArrayName="products">
 		<div *ngFor="let product of productForms.controls; let i = index" [formGroupName]="i">
 			<mat-form-field appearance="standard">
@@ -42,12 +42,12 @@
 				<mat-label>Quantity</mat-label>
 			</mat-form-field>
 
-			<button mat-icon-button color="warn" (click)="deleteProduct(i)">
+			<button type="button" mat-icon-button color="warn" (click)="deleteProduct(i)">
 				<mat-icon>delete</mat-icon>
 			</button>
 		</div>
 	</div>
-	<button mat-raised-button color="primary" (click)="addProduct()">
+	<button type="button" mat-raised-button color="primary" (click)="addProduct()">
 		<mat-icon>add</mat-icon> Add Row
 	</button>
 	<button type="submit" mat-raised-button color="primary" [disabled]="saleForm.invalid">
