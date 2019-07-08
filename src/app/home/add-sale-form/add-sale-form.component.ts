@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 
 import { combineLatest } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -21,6 +21,8 @@ export class AddSaleFormComponent implements OnInit {
 
 	ngOnInit() {
 		this.saleForm = this.fb.group({
+			customerName: '',
+			date: [new Date(), Validators.required],
 			products: this.fb.array([], Validators.required)
 		});
 	}
