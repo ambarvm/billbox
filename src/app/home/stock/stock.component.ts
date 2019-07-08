@@ -7,6 +7,7 @@ import { DataService } from 'src/app/core/data.service';
 	styleUrls: ['./stock.component.scss']
 })
 export class StockComponent implements OnInit {
+	columnsToDisplay: string[] = ['category', 'name', 'quantity'];
 	constructor(public dataService: DataService) {}
 
 	ngOnInit() {}

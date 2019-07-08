@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import {
-	AngularFirestore,
-	AngularFirestoreCollection,
-	AngularFirestoreDocument
-} from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 import { firestore } from 'firebase/app';
 
-import { Product, CategoryList, SaleData } from '../interfaces';
+import { Product, SaleData } from '../interfaces';
 
 @Injectable({
 	providedIn: 'root'
@@ -19,6 +15,7 @@ export class DataService {
 	categories: string[];
 
 	productsCollection: AngularFirestoreCollection<Product>;
+	productsObservable: Observable<Product[]>;
 	products: Product[];
 
 	constructor(private afs: AngularFirestore) {
@@ -27,7 +24,8 @@ export class DataService {
 		this.categoriesObservable.subscribe(val => (this.categories = val.list));
 
 		this.productsCollection = afs.collection('products');
-		this.productsCollection.valueChanges().subscribe(val => (this.products = val));
+		this.productsObservable = this.productsCollection.valueChanges();
+		this.productsObservable.subscribe(val => (this.products = val));
 	}
 
 	async addNewProduct(product: Product) {
