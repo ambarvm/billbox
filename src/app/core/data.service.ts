@@ -58,4 +58,14 @@ export class DataService {
 		});
 		batch.commit();
 	}
+
+	/**
+	 * getProduct
+	 */
+	public getProduct(category: string, name: string) {
+		let index: number = this.products.findIndex(
+			(prod: Product) => prod.category === category && prod.name === name
+		);
+		return index === -1 ? null : this.products[index];
+	}
 }

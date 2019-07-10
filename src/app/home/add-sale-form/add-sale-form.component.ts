@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import {
+	FormBuilder,
+	FormGroup,
+	FormArray,
+	Validators,
+	FormControl,
+	AbstractControl
+} from '@angular/forms';
 
 import { combineLatest } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -16,6 +23,7 @@ import { CustomValidators } from 'src/app/shared/custom-validators';
 export class AddSaleFormComponent implements OnInit {
 	saleForm: FormGroup;
 	filteredProducts: Product[][] = [];
+	quantityLimits: number[] = [];
 
 	constructor(private fb: FormBuilder, public dataService: DataService) {}
 
@@ -31,15 +39,23 @@ export class AddSaleFormComponent implements OnInit {
 		return this.saleForm.get('products') as FormArray;
 	}
 
-	nameFilterInit(index: number) {
+	formgroupInit(index: number) {
+		const pfi: AbstractControl = this.productForms.at(index);
 		combineLatest(
-			this.productForms
-				.at(index)
-				.get('name')
-				.valueChanges.pipe(startWith('')),
-			this.productForms.at(index).get('category').valueChanges
+			pfi.get('name').valueChanges.pipe(startWith('')),
+			pfi.get('category').valueChanges
 		).subscribe(value => {
 			this.filteredProducts[index] = this._filter(value);
+			const quantity = (this.quantityLimits[index] = this.getProductQuantity(
+				pfi.get('category').value,
+				pfi.get('name').value
+			));
+			pfi.get('quantity').setValidators([
+				Validators.required,
+				Validators.min(1),
+				Validators.max(quantity)
+			]);
+			pfi.get('quantity').updateValueAndValidity();
 		});
 	}
 
@@ -52,7 +68,7 @@ export class AddSaleFormComponent implements OnInit {
 		});
 
 		this.productForms.push(prod);
-		this.nameFilterInit(this.productForms.length - 1);
+		this.formgroupInit(this.productForms.length - 1);
 	}
 
 	deleteProduct(index: number) {
@@ -67,6 +83,11 @@ export class AddSaleFormComponent implements OnInit {
 			option =>
 				option.category === category && option.name.toLowerCase().includes(filterValue)
 		);
+	}
+
+	getProductQuantity(category: string, name: string): number {
+		const prod: Product = this.dataService.getProduct(category, name);
+		return prod ? prod.quantity : 0;
 	}
 
 	async submitHandler() {
