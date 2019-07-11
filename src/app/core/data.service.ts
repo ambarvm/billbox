@@ -60,10 +60,12 @@ export class DataService {
 	}
 
 	/**
-	 * getProduct
+	 * Returns the product object
+	 * @param category category of product
+	 * @param name name of product
 	 */
 	public getProduct(category: string, name: string) {
-		let index: number = this.products.findIndex(
+		const index: number = this.products.findIndex(
 			(prod: Product) => prod.category === category && prod.name === name
 		);
 		return index === -1 ? null : this.products[index];

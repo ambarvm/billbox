@@ -60,6 +60,16 @@
 				<input matInput type="number" formControlName="quantity" />
 				<mat-label>Quantity</mat-label>
 				<span matSuffix> /{{ quantityLimits[i] }} </span>
+				<mat-error
+					*ngIf="
+						productForms
+							.at(i)
+							.get('quantity')
+							.hasError('max')
+					"
+				>
+					Insufficient stock
+				</mat-error>
 			</mat-form-field>
 
 			<button type="button" mat-icon-button color="warn" (click)="deleteProduct(i)">
