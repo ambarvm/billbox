@@ -1,5 +1,5 @@
 import { DataService } from '../core/data.service';
-import { ValidatorFn, AbstractControl } from '@angular/forms';
+import { ValidatorFn, AbstractControl, FormArray } from '@angular/forms';
 
 export class CustomValidators {
 	static productValidator(dataService: DataService): ValidatorFn {
@@ -15,5 +15,18 @@ export class CustomValidators {
 			}
 			return { invalidProduct: true };
 		};
+	}
+
+	static duplicateProductValidator(formArray: FormArray): { [key: string]: boolean } | null {
+		let valuesSoFar = Object.create(null);
+		for (let i = 0; i < formArray.length; i++) {
+			const element = formArray.at(i);
+			const productId = `${element.get('category').value}-${element.get('name').value}`;
+			if (productId in valuesSoFar) {
+				return { duplicateProduct: true };
+			}
+			valuesSoFar[productId] = true;
+		}
+		return null;
 	}
 }

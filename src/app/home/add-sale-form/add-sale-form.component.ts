@@ -31,7 +31,10 @@ export class AddSaleFormComponent implements OnInit {
 		this.saleForm = this.fb.group({
 			customerName: '',
 			date: [new Date(), Validators.required],
-			products: this.fb.array([], Validators.required)
+			products: this.fb.array(
+				[],
+				[Validators.required, CustomValidators.duplicateProductValidator]
+			)
 		});
 	}
 

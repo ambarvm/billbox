@@ -76,6 +76,9 @@
 				<mat-icon>delete</mat-icon>
 			</button>
 		</div>
+		<mat-error class="center-text" *ngIf="productForms.hasError('duplicateProduct')"
+			>Error: Duplicate Product Entries</mat-error
+		>
 	</div>
 	<button type="button" mat-raised-button color="primary" (click)="addProduct()">
 		<mat-icon>add</mat-icon> Add Row
