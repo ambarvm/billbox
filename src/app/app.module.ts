@@ -14,6 +14,7 @@ import { NewProductFormComponent } from './home/new-product-form/new-product-for
 import { NewCategoryFormComponent } from './home/new-category-form/new-category-form.component';
 import { StockComponent } from './home/stock/stock.component';
 import { SharedModule } from './shared/shared.module';
+import { AddPurchaseFormComponent } from './home/add-purchase-form/add-purchase-form.component';
 
 @NgModule({
 	declarations: [
@@ -22,7 +23,8 @@ import { SharedModule } from './shared/shared.module';
 		AddSaleFormComponent,
 		NewProductFormComponent,
 		NewCategoryFormComponent,
-		StockComponent
+		StockComponent,
+		AddPurchaseFormComponent
 	],
 	imports: [
 		CoreModule,

@@ -9,19 +9,19 @@ import { Product } from 'src/app/interfaces';
 import { CustomValidators } from 'src/app/shared/custom-validators';
 
 @Component({
-	selector: 'app-add-sale-form',
-	templateUrl: './add-sale-form.component.html',
-	styleUrls: ['./add-sale-form.component.scss']
+	selector: 'app-add-purchase-form',
+	templateUrl: './add-purchase-form.component.html',
+	styleUrls: ['./add-purchase-form.component.scss']
 })
-export class AddSaleFormComponent implements OnInit {
-	saleForm: FormGroup;
+export class AddPurchaseFormComponent implements OnInit {
+	purchaseForm: FormGroup;
 	filteredProducts: Product[][] = [];
 	quantityLimits: number[] = [];
 
 	constructor(private fb: FormBuilder, public dataService: DataService) {}
 
 	ngOnInit() {
-		this.saleForm = this.fb.group({
+		this.purchaseForm = this.fb.group({
 			customerName: '',
 			date: [new Date(), Validators.required],
 			products: this.fb.array(
@@ -32,7 +32,7 @@ export class AddSaleFormComponent implements OnInit {
 	}
 
 	public get productForms(): FormArray {
-		return this.saleForm.get('products') as FormArray;
+		return this.purchaseForm.get('products') as FormArray;
 	}
 
 	formgroupInit(index: number) {
@@ -42,16 +42,10 @@ export class AddSaleFormComponent implements OnInit {
 			pfi.get('category').valueChanges
 		).subscribe(value => {
 			this.filteredProducts[index] = this._filter(value);
-			const quantity = (this.quantityLimits[index] = this.getProductQuantity(
+			this.quantityLimits[index] = this.getProductQuantity(
 				pfi.get('category').value,
 				pfi.get('name').value
-			));
-			pfi.get('quantity').setValidators([
-				Validators.required,
-				Validators.min(1),
-				Validators.max(quantity)
-			]);
-			pfi.get('quantity').updateValueAndValidity();
+			);
 		});
 	}
 
@@ -87,7 +81,7 @@ export class AddSaleFormComponent implements OnInit {
 	}
 
 	async submitHandler() {
-		await this.dataService.executeSale(this.saleForm.value.products);
-		console.log('sale form submitted: ', this.saleForm.value);
+		await this.dataService.executeSale(this.purchaseForm.value.products);
+		console.log('sale form submitted: ', this.purchaseForm.value);
 	}
 }

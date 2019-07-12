@@ -30,7 +30,7 @@ export class DataService {
 
 	async addNewProduct(product: Product) {
 		try {
-			await this.productsCollection.doc(`${product.category}-${product.name}`).set(product);
+			this.productsCollection.doc(`${product.category}-${product.name}`).set(product);
 		} catch (err) {
 			throw err;
 		}
