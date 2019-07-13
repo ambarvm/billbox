@@ -1,3 +1,8 @@
+<mat-form-field appearance="standard">
+	<mat-icon matSuffix>search</mat-icon>
+	<input matInput (keyup)="applyFilter($event.target.value)" />
+	<mat-label>Search</mat-label>
+</mat-form-field>
 <div class="container mat-elevation-z4">
 	<table mat-table #table [dataSource]="dataSource">
 		<ng-container matColumnDef="category">

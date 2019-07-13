@@ -23,4 +23,8 @@ export class StockComponent implements OnInit {
 		});
 		this.dataSource.paginator = this.paginator;
 	}
+
+	applyFilter(filterValue: string) {
+		this.dataSource.filter = filterValue.trim().toLowerCase();
+	}
 }

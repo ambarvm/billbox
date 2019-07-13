@@ -3,5 +3,10 @@ table {
 }
 
 .container {
-	margin: 30px;
+	margin: 0px 30px 30px 30px;
+}
+
+mat-form-field {
+	margin: auto 30px;
+	width: calc(100% - 60px);
 }
