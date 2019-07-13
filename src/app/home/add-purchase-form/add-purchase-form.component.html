@@ -1,4 +1,4 @@
-<form [formGroup]="purchaseForm">
+<form [formGroup]="purchaseForm" (ngSubmit)="submitHandler()">
 	<mat-form-field appearance="standard">
 		<mat-label>Customer Name</mat-label>
 		<input matInput type="text" formControlName="customerName" />
@@ -73,10 +73,12 @@
 			>Error: Duplicate Product Entries</mat-error
 		>
 	</div>
+
 	<button type="button" mat-raised-button color="primary" (click)="addProduct()">
 		<mat-icon>add</mat-icon> Add Row
 	</button>
+
 	<button type="submit" mat-raised-button color="primary" [disabled]="purchaseForm.invalid">
-		Add Sale
+		Add Purchase
 	</button>
 </form>

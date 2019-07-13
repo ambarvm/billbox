@@ -80,7 +80,7 @@ export class AddPurchaseFormComponent implements OnInit {
 	}
 
 	async submitHandler() {
-		await this.dataService.executeSale(this.purchaseForm.value.products);
-		console.log('sale form submitted: ', this.purchaseForm.value);
+		await this.dataService.executePurchase(this.purchaseForm.value.products);
+		console.log('purchase form submitted: ', this.purchaseForm.value);
 	}
 }

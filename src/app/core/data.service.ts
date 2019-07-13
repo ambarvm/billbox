@@ -28,6 +28,10 @@ export class DataService {
 		this.productsObservable.subscribe(val => (this.products = val));
 	}
 
+	/**
+	 * Adds new product to the firestore
+	 * @param product product object
+	 */
 	async addNewProduct(product: Product) {
 		product.name = product.name.toLowerCase();
 		try {
@@ -37,6 +41,10 @@ export class DataService {
 		}
 	}
 
+	/**
+	 * Adds new category to the firestore
+	 * @param category Name of new category
+	 */
 	async addNewCategory(category: string) {
 		try {
 			this.categoriesDoc.update({
@@ -55,6 +63,19 @@ export class DataService {
 			).ref;
 			batch.update(productRef, {
 				quantity: firestore.FieldValue.increment(-saleData.quantity)
+			});
+		});
+		batch.commit();
+	}
+
+	async executePurchase(purchaseDataList: Product[]) {
+		const batch: firestore.WriteBatch = this.afs.firestore.batch();
+		purchaseDataList.forEach(purchaseData => {
+			const productRef: firestore.DocumentReference = this.productsCollection.doc(
+				`${purchaseData.category}>${purchaseData.name}`
+			).ref;
+			batch.update(productRef, {
+				quantity: firestore.FieldValue.increment(purchaseData.quantity)
 			});
 		});
 		batch.commit();
