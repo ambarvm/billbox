@@ -30,7 +30,7 @@ export class DataService {
 
 	async addNewProduct(product: Product) {
 		try {
-			this.productsCollection.doc(`${product.category}-${product.name}`).set(product);
+			this.productsCollection.doc(`${product.category}>${product.name}`).set(product);
 		} catch (err) {
 			throw err;
 		}
@@ -50,7 +50,7 @@ export class DataService {
 		const batch: firestore.WriteBatch = this.afs.firestore.batch();
 		saleDataList.forEach(saleData => {
 			const productRef: firestore.DocumentReference = this.productsCollection.doc(
-				`${saleData.category}-${saleData.name}`
+				`${saleData.category}>${saleData.name}`
 			).ref;
 			batch.update(productRef, {
 				quantity: firestore.FieldValue.increment(-saleData.quantity)
