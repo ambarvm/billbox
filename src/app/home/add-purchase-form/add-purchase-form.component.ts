@@ -53,7 +53,6 @@ export class AddPurchaseFormComponent implements OnInit {
 		const prod = this.fb.group({
 			category: ['', Validators.required],
 			name: ['', [Validators.required, CustomValidators.productValidator(this.dataService)]],
-			price: ['', [Validators.required, Validators.min(0)]],
 			quantity: ['', [Validators.required, Validators.min(1)]]
 		});
 
