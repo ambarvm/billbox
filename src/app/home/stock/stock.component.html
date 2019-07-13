@@ -2,12 +2,12 @@
 	<table mat-table #table [dataSource]="dataSource">
 		<ng-container matColumnDef="category">
 			<th mat-header-cell *matHeaderCellDef>Category</th>
-			<td mat-cell *matCellDef="let product">{{ product.category }}</td>
+			<td mat-cell *matCellDef="let product">{{ product.category | titlecase }}</td>
 		</ng-container>
 
 		<ng-container matColumnDef="name">
 			<th mat-header-cell *matHeaderCellDef>Product Name</th>
-			<td mat-cell *matCellDef="let product">{{ product.name }}</td>
+			<td mat-cell *matCellDef="let product">{{ product.name | titlecase }}</td>
 		</ng-container>
 
 		<ng-container matColumnDef="quantity">
