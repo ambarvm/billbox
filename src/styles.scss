@@ -1,3 +1,6 @@
+$material-icons-font-path: '~material-icons/iconfont/';
+@import '~material-icons/iconfont/material-icons.scss';
+
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -39,6 +42,9 @@ body {
 mat-form-field,
 button {
 	margin-right: 12px !important;
+}
+button.mat-icon-button {
+	margin: 0px !important;
 }
 
 mat-tab-body {
