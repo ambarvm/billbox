@@ -29,6 +29,7 @@ export class DataService {
 	}
 
 	async addNewProduct(product: Product) {
+		product.name = product.name.toLowerCase();
 		try {
 			this.productsCollection.doc(`${product.category}>${product.name}`).set(product);
 		} catch (err) {
@@ -39,7 +40,7 @@ export class DataService {
 	async addNewCategory(category: string) {
 		try {
 			this.categoriesDoc.update({
-				list: firestore.FieldValue.arrayUnion(category)
+				list: firestore.FieldValue.arrayUnion(category.toLowerCase())
 			});
 		} catch (err) {
 			throw err;
