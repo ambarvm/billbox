@@ -1,13 +1,36 @@
 {
 	"name": "billbox",
 	"version": "0.0.0",
+	"build": {
+		"appId": "com.supercoww.billbox",
+		"productName": "Billbox",
+		"copyright": "Copyright © 2019 ${author}",
+		"files": [
+			"!./*",
+			"dist/**/*",
+			"./main.js"
+		],
+		"directories": {
+			"output": "release",
+			"buildResources": "dist"
+		},
+		"asar": false,
+		"win": {
+			"target": [
+				"nsis"
+			]
+		},
+		"nsis": {
+			"license": "LICENSE"
+		}
+	},
 	"main": "main.js",
 	"scripts": {
 		"start": "ng serve -o",
 		"build": "ng build",
 		"electron": "electron .",
 		"electron-build": "ng build && electron .",
-		"pack:win": "electron-packager . Billbox --platform=win32 --arch=x64 --asar --overwrite",
+		"dist": "electron-builder",
 		"ng": "ng",
 		"test": "ng test",
 		"lint": "ng lint",
@@ -16,6 +39,10 @@
 	"private": true,
 	"author": "Ambar Mutha",
 	"description": "A simple inventory & billing app",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/supercoww/billbox.git"
+	},
 	"dependencies": {
 		"@angular/animations": "~8.0.1",
 		"@angular/cdk": "~8.0.1",
@@ -23,11 +50,12 @@
 		"@angular/compiler": "~8.0.1",
 		"@angular/core": "~8.0.1",
 		"@angular/forms": "~8.0.1",
-		"@angular/material": "^8.0.1",
+		"@angular/material": "^8.0.2",
 		"@angular/platform-browser": "~8.0.1",
 		"@angular/platform-browser-dynamic": "~8.0.1",
 		"@angular/router": "~8.0.1",
 		"angularfire2": "^5.2.1",
+		"electron-updater": "^4.1.2",
 		"firebase": "^6.2.4",
 		"hammerjs": "^2.0.8",
 		"material-icons": "^0.3.1",
@@ -45,7 +73,7 @@
 		"@types/node": "~8.9.4",
 		"codelyzer": "^5.0.0",
 		"electron": "^5.0.6",
-		"electron-packager": "^14.0.1",
+		"electron-builder": "^21.0.15",
 		"jasmine-core": "~3.4.0",
 		"jasmine-spec-reporter": "~4.2.1",
 		"karma": "~4.1.0",

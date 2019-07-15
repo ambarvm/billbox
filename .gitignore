@@ -2,7 +2,7 @@
 
 /src/environments
 /billbox-win32-x64
-/releases
+/release
 
 # compiled output
 /dist
