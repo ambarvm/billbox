@@ -1,6 +1,6 @@
 {
 	"name": "billbox",
-	"version": "0.0.0",
+	"version": "0.1.1",
 	"build": {
 		"appId": "com.supercoww.billbox",
 		"productName": "Billbox",
@@ -14,10 +14,15 @@
 			"output": "release",
 			"buildResources": "dist"
 		},
-		"asar": false,
+		"asar": true,
 		"win": {
 			"target": [
 				"nsis"
+			],
+			"publish": [
+				{
+					"provider": "github"
+				}
 			]
 		},
 		"nsis": {

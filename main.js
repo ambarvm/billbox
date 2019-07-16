@@ -1,11 +1,13 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
+const { autoUpdater } = require('electron-updater');
 
 let win;
 
 function createWindow() {
 	win = new BrowserWindow({
+		title: 'Billbox',
 		width: 870,
 		height: 600,
 		show: false,
@@ -21,6 +23,10 @@ function createWindow() {
 	);
 
 	win.on('ready-to-show', win.show);
+
+	app.on('ready', function() {
+		autoUpdater.checkForUpdatesAndNotify();
+	});
 
 	win.on('closed', () => {
 		win = null;
