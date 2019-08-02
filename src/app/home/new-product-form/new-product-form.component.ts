@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { DataService } from 'src/app/core/data.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-new-product-form',
@@ -9,8 +10,13 @@ import { DataService } from 'src/app/core/data.service';
 })
 export class NewProductFormComponent implements OnInit {
 	newProductForm: FormGroup;
+	@ViewChild('form', { static: true }) form: NgForm;
 
-	constructor(private fb: FormBuilder, public dataService: DataService) {}
+	constructor(
+		private fb: FormBuilder,
+		public dataService: DataService,
+		private snackbar: MatSnackBar
+	) {}
 
 	ngOnInit() {
 		this.newProductForm = this.fb.group({
@@ -24,6 +30,10 @@ export class NewProductFormComponent implements OnInit {
 		try {
 			await this.dataService.addNewProduct(this.newProductForm.value);
 			console.log('successfully added prod');
+			this.snackbar.open('New Product Added', 'Dismiss', {
+				duration: 2000
+			});
+			this.form.resetForm();
 		} catch (error) {
 			console.error(error);
 		}

@@ -1,4 +1,4 @@
-<form [formGroup]="newProductForm" (ngSubmit)="submitHandler()">
+<form [formGroup]="newProductForm" (ngSubmit)="submitHandler()" #form="ngForm">
 	<h2>Add New Product</h2>
 	<mat-form-field appearance="standard">
 		<mat-label>Category</mat-label>
