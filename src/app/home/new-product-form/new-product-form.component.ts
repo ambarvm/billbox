@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
 	selector: 'app-new-product-form',
 	templateUrl: './new-product-form.component.html',
-	styleUrls: ['./new-product-form.component.scss']
+	styleUrls: ['./new-product-form.component.scss'],
 })
 export class NewProductFormComponent implements OnInit {
 	newProductForm: FormGroup;
@@ -22,7 +22,7 @@ export class NewProductFormComponent implements OnInit {
 		this.newProductForm = this.fb.group({
 			category: ['', Validators.required],
 			name: ['', Validators.required],
-			quantity: ['', [Validators.required, Validators.min(0)]]
+			quantity: ['', [Validators.required, Validators.min(0)]],
 		});
 	}
 
@@ -31,9 +31,11 @@ export class NewProductFormComponent implements OnInit {
 			await this.dataService.addNewProduct(this.newProductForm.value);
 			console.log('successfully added prod');
 			this.snackbar.open('New Product Added', 'Dismiss', {
-				duration: 2000
+				duration: 2000,
 			});
-			this.form.resetForm();
+
+			const category: string = this.newProductForm.get('category').value;
+			this.form.resetForm({ category });
 		} catch (error) {
 			console.error(error);
 		}
