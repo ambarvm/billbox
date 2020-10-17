@@ -23,13 +23,22 @@ $billbox-warn: mat-palette($mat-red);
 $billbox-dark-primary: mat-palette($mat-blue, A100);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$billbox-theme: mat-light-theme($billbox-primary, $billbox-accent, $billbox-warn);
-$billbox-dark-theme: mat-dark-theme($billbox-dark-primary, $billbox-accent, $billbox-warn);
+$billbox-theme: mat-light-theme(
+	$billbox-primary,
+	$billbox-accent,
+	$billbox-warn
+);
+$billbox-dark-theme: mat-dark-theme(
+	$billbox-dark-primary,
+	$billbox-accent,
+	$billbox-warn
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@media screen and (prefers-color-scheme: light), screen and (prefers-color-scheme: no-preference) {
+@media screen and (prefers-color-scheme: light),
+	screen and (prefers-color-scheme: no-preference) {
 	@include angular-material-theme($billbox-theme);
 }
 @media screen and (prefers-color-scheme: dark) {
@@ -37,7 +46,9 @@ $billbox-dark-theme: mat-dark-theme($billbox-dark-primary, $billbox-accent, $bil
 }
 
 /* You can add global styles to this file, and also import other style files */
-
+* {
+	box-sizing: border-box;
+}
 html,
 body {
 	height: 100%;

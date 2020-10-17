@@ -45,6 +45,12 @@ yarn-error.log
 testem.log
 /typings
 
+# firebase
+.firebaserc
+firestore.rules
+.firebase/
+firebase-debug.log
+
 # System Files
 .DS_Store
 Thumbs.db
