@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
+import {
+	FormBuilder,
+	FormGroup,
+	FormArray,
+	Validators,
+	AbstractControl,
+} from '@angular/forms';
 
 import { combineLatest } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -11,7 +17,7 @@ import { CustomValidators } from 'src/app/shared/custom-validators';
 @Component({
 	selector: 'app-add-sale-form',
 	templateUrl: './add-sale-form.component.html',
-	styleUrls: ['./add-sale-form.component.scss']
+	styleUrls: ['./add-sale-form.component.scss'],
 })
 export class AddSaleFormComponent implements OnInit {
 	saleForm: FormGroup;
@@ -27,7 +33,7 @@ export class AddSaleFormComponent implements OnInit {
 			products: this.fb.array(
 				[],
 				[Validators.required, CustomValidators.duplicateProductValidator]
-			)
+			),
 		});
 	}
 
@@ -37,20 +43,22 @@ export class AddSaleFormComponent implements OnInit {
 
 	formgroupInit(index: number) {
 		const pfi: AbstractControl = this.productForms.at(index);
-		combineLatest(
+		combineLatest([
 			pfi.get('name').valueChanges.pipe(startWith('')),
-			pfi.get('category').valueChanges
-		).subscribe(value => {
+			pfi.get('category').valueChanges,
+		]).subscribe((value) => {
 			this.filteredProducts[index] = this._filter(value);
 			const quantity = (this.quantityLimits[index] = this.getProductQuantity(
 				pfi.get('category').value,
 				pfi.get('name').value
 			));
-			pfi.get('quantity').setValidators([
-				Validators.required,
-				Validators.min(1),
-				Validators.max(quantity)
-			]);
+			pfi
+				.get('quantity')
+				.setValidators([
+					Validators.required,
+					Validators.min(1),
+					Validators.max(quantity),
+				]);
 			pfi.get('quantity').updateValueAndValidity();
 		});
 	}
@@ -58,9 +66,15 @@ export class AddSaleFormComponent implements OnInit {
 	addProduct() {
 		const prod = this.fb.group({
 			category: ['', Validators.required],
-			name: ['', [Validators.required, CustomValidators.productValidator(this.dataService)]],
-			price: ['', [Validators.required, Validators.min(0)]],
-			quantity: ['', [Validators.required, Validators.min(1)]]
+			name: [
+				'',
+				[
+					Validators.required,
+					CustomValidators.productValidator(this.dataService),
+				],
+			],
+			price: [0, [Validators.required, Validators.min(0)]],
+			quantity: ['', [Validators.required, Validators.min(1)]],
 		});
 
 		this.productForms.push(prod);
@@ -69,6 +83,7 @@ export class AddSaleFormComponent implements OnInit {
 
 	deleteProduct(index: number) {
 		this.productForms.removeAt(index);
+		this.quantityLimits = this.quantityLimits.filter((_, i) => i !== index);
 		this.filteredProducts[index] = [];
 	}
 
@@ -76,8 +91,9 @@ export class AddSaleFormComponent implements OnInit {
 		const filterValue = name.toLowerCase();
 
 		return this.dataService.products.filter(
-			option =>
-				option.category === category && option.name.toLowerCase().includes(filterValue)
+			(option) =>
+				option.category === category &&
+				option.name.toLowerCase().includes(filterValue)
 		);
 	}
 
