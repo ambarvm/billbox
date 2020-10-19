@@ -1,4 +1,4 @@
-<form [formGroup]="saleForm" (ngSubmit)="submitHandler()">
+<form [formGroup]="saleForm" (ngSubmit)="submitHandler()" #form="ngForm">
 	<mat-form-field appearance="standard">
 		<mat-label>Customer Name</mat-label>
 		<input matInput type="text" formControlName="customerName" />
@@ -13,38 +13,44 @@
 	</mat-form-field>
 
 	<div formArrayName="products">
-		<div *ngFor="let product of productForms.controls; let i = index" [formGroupName]="i">
+		<div
+			*ngFor="let product of productForms.controls; let i = index"
+			[formGroupName]="i"
+		>
 			<mat-form-field appearance="standard">
 				<mat-label>Category</mat-label>
 				<mat-select
 					formControlName="category"
 					(selectionChange)="
-						productForms
-							.at(i)
-							.get('name')
-							.updateValueAndValidity()
+						productForms.at(i).get('name').updateValueAndValidity()
 					"
 				>
-					<mat-option *ngFor="let category of dataService.categories" [value]="category">
+					<mat-option
+						*ngFor="let category of dataService.categories"
+						[value]="category"
+					>
 						{{ category | titlecase }}
 					</mat-option>
 				</mat-select>
 			</mat-form-field>
 
 			<mat-form-field appearance="standard">
-				<input matInput type="text" formControlName="name" [matAutocomplete]="auto" />
+				<input
+					matInput
+					type="text"
+					formControlName="name"
+					[matAutocomplete]="auto"
+				/>
 				<mat-label>Product Name</mat-label>
 				<mat-error
-					*ngIf="
-						productForms
-							.at(i)
-							.get('name')
-							.hasError('invalidProduct')
-					"
+					*ngIf="productForms.at(i).get('name').hasError('invalidProduct')"
 					>Invalid Product</mat-error
 				>
 				<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-					<mat-option *ngFor="let option of filteredProducts[i]" [value]="option.name">
+					<mat-option
+						*ngFor="let option of filteredProducts[i]"
+						[value]="option.name"
+					>
 						{{ option.name | titlecase }}
 					</mat-option>
 				</mat-autocomplete>
@@ -60,30 +66,40 @@
 				<input matInput type="number" formControlName="quantity" />
 				<mat-label>Quantity</mat-label>
 				<span matSuffix> /{{ quantityLimits[i] }} </span>
-				<mat-error
-					*ngIf="
-						productForms
-							.at(i)
-							.get('quantity')
-							.hasError('max')
-					"
-				>
+				<mat-error *ngIf="productForms.at(i).get('quantity').hasError('max')">
 					Insufficient stock
 				</mat-error>
 			</mat-form-field>
 
-			<button type="button" mat-icon-button color="warn" (click)="deleteProduct(i)">
+			<button
+				type="button"
+				mat-icon-button
+				color="warn"
+				(click)="deleteProduct(i)"
+			>
 				<mat-icon>delete</mat-icon>
 			</button>
 		</div>
-		<mat-error class="center-text" *ngIf="productForms.hasError('duplicateProduct')"
+		<mat-error
+			class="center-text"
+			*ngIf="productForms.hasError('duplicateProduct')"
 			>Error: Duplicate Product Entries</mat-error
 		>
 	</div>
-	<button type="button" mat-raised-button color="primary" (click)="addProduct()">
+	<button
+		type="button"
+		mat-raised-button
+		color="primary"
+		(click)="addProduct()"
+	>
 		<mat-icon>add</mat-icon> Add Row
 	</button>
-	<button type="submit" mat-raised-button color="primary" [disabled]="saleForm.invalid">
+	<button
+		type="submit"
+		mat-raised-button
+		color="primary"
+		[disabled]="saleForm.invalid"
+	>
 		Add Sale
 	</button>
 </form>

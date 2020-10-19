@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
 	FormBuilder,
 	FormGroup,
 	FormArray,
 	Validators,
 	AbstractControl,
+	NgForm,
 } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
 import { DataService } from 'src/app/core/data.service';
@@ -20,11 +22,17 @@ import { CustomValidators } from 'src/app/shared/custom-validators';
 	styleUrls: ['./add-sale-form.component.scss'],
 })
 export class AddSaleFormComponent implements OnInit {
+	@ViewChild('form', { static: true }) form: NgForm;
 	saleForm: FormGroup;
 	filteredProducts: Product[][] = [];
 	quantityLimits: number[] = [];
+	filterSubscriptions: Subscription[] = [];
 
-	constructor(private fb: FormBuilder, public dataService: DataService) {}
+	constructor(
+		private fb: FormBuilder,
+		public dataService: DataService,
+		private snackbar: MatSnackBar
+	) {}
 
 	ngOnInit() {
 		this.saleForm = this.fb.group({
@@ -43,7 +51,8 @@ export class AddSaleFormComponent implements OnInit {
 
 	formgroupInit(index: number) {
 		const pfi: AbstractControl = this.productForms.at(index);
-		combineLatest([
+		const quantityControl = pfi.get('quantity');
+		const subscription = combineLatest([
 			pfi.get('name').valueChanges.pipe(startWith('')),
 			pfi.get('category').valueChanges,
 		]).subscribe((value) => {
@@ -52,15 +61,15 @@ export class AddSaleFormComponent implements OnInit {
 				pfi.get('category').value,
 				pfi.get('name').value
 			));
-			pfi
-				.get('quantity')
-				.setValidators([
-					Validators.required,
-					Validators.min(1),
-					Validators.max(quantity),
-				]);
+			quantityControl.setValidators([
+				Validators.required,
+				Validators.min(0),
+				Validators.max(quantity),
+			]);
 			pfi.get('quantity').updateValueAndValidity();
 		});
+
+		this.filterSubscriptions.push(subscription);
 	}
 
 	addProduct() {
@@ -84,6 +93,10 @@ export class AddSaleFormComponent implements OnInit {
 	deleteProduct(index: number) {
 		this.productForms.removeAt(index);
 		this.quantityLimits = this.quantityLimits.filter((_, i) => i !== index);
+		this.filterSubscriptions[index].unsubscribe();
+		this.filterSubscriptions = this.filterSubscriptions.filter(
+			(_, i) => i !== index
+		);
 		this.filteredProducts[index] = [];
 	}
 
@@ -105,5 +118,19 @@ export class AddSaleFormComponent implements OnInit {
 	async submitHandler() {
 		await this.dataService.executeSale(this.saleForm.value.products);
 		console.log('sale form submitted: ', this.saleForm.value);
+		this.snackbar.open('Sale added', 'Dismiss', {
+			duration: 2000,
+		});
+
+		// Reset the form and clear subscriptions
+		this.filterSubscriptions.map((sub) => sub.unsubscribe());
+		this.productForms.clear();
+		this.form.resetForm({
+			customerName: '',
+			date: new Date(),
+			products: [],
+		});
+		this.filteredProducts = [];
+		this.quantityLimits = [];
 	}
 }
