@@ -1,23 +1,59 @@
-<div style="display: flex; justify-content: space-between; padding: 0 1rem">
-	<p *ngIf="auth.user | async as usr">{{ usr.email }}</p>
-	<button mat-button color="primary" (click)="auth.logout()">Log out</button>
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+	<mat-toolbar color="primary" class="example-toolbar">
+		<button mat-icon-button (click)="snav.toggle()">
+			<mat-icon>menu</mat-icon>
+		</button>
+		<h1 class="example-app-name">Billbox</h1>
+	</mat-toolbar>
+
+	<mat-sidenav-container
+		class="example-sidenav-container"
+		[style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+	>
+		<mat-sidenav
+			#snav="matSidenav"
+			[mode]="mobileQuery.matches ? 'over' : 'side'"
+			[fixedInViewport]="mobileQuery.matches"
+			fixedTopGap="56"
+		>
+			<div style="padding: 0 1rem">
+				<p *ngIf="auth.user | async as usr">{{ usr.email }}</p>
+			</div>
+
+			<mat-nav-list>
+				<a
+					mat-list-item
+					*ngFor="let link of navLinks"
+					[routerLink]="link"
+					(click)="mobileQuery.matches && snav.close()"
+					>{{ link | titlecase }}</a
+				>
+				<a *ngIf="auth.user | async" mat-list-item (click)="auth.logout()">
+					Log out
+				</a>
+			</mat-nav-list>
+		</mat-sidenav>
+
+		<mat-sidenav-content>
+			<!-- <mat-tab-group>
+				<mat-tab label="Add Sale">
+					<app-add-sale-form></app-add-sale-form>
+				</mat-tab>
+
+				<mat-tab label="Add Purchase">
+					<app-add-purchase-form></app-add-purchase-form>
+				</mat-tab>
+
+				<mat-tab label="View Stock">
+					<app-stock></app-stock>
+				</mat-tab>
+
+				<mat-tab label="More">
+					<app-new-product-form></app-new-product-form>
+					<app-new-category-form></app-new-category-form>
+				</mat-tab>
+			</mat-tab-group> -->
+			<router-outlet></router-outlet>
+		</mat-sidenav-content>
+	</mat-sidenav-container>
 </div>
-
-<mat-tab-group>
-	<mat-tab label="Add Sale">
-		<app-add-sale-form></app-add-sale-form>
-	</mat-tab>
-
-	<mat-tab label="Add Purchase">
-		<app-add-purchase-form></app-add-purchase-form>
-	</mat-tab>
-
-	<mat-tab label="View Stock">
-		<app-stock></app-stock>
-	</mat-tab>
-
-	<mat-tab label="More">
-		<app-new-product-form></app-new-product-form>
-		<app-new-category-form></app-new-category-form>
-	</mat-tab>
-</mat-tab-group>

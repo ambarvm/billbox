@@ -18,6 +18,7 @@ import { AddPurchaseFormComponent } from './home/add-purchase-form/add-purchase-
 import { LoginComponent } from './login/login.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { MorePageComponent } from './home/more-page/more-page.component';
 
 @NgModule({
 	declarations: [
@@ -28,7 +29,8 @@ import { environment } from '../environments/environment';
 		NewCategoryFormComponent,
 		StockComponent,
 		AddPurchaseFormComponent,
-		LoginComponent
+		LoginComponent,
+		MorePageComponent
 	],
 	imports: [
 		CoreModule,
