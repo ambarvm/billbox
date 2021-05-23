@@ -25,6 +25,7 @@
 					mat-list-item
 					*ngFor="let link of navLinks"
 					[routerLink]="link"
+					routerLinkActive="active-link"
 					(click)="mobileQuery.matches && snav.close()"
 					>{{ link | titlecase }}</a
 				>
@@ -35,24 +36,6 @@
 		</mat-sidenav>
 
 		<mat-sidenav-content>
-			<!-- <mat-tab-group>
-				<mat-tab label="Add Sale">
-					<app-add-sale-form></app-add-sale-form>
-				</mat-tab>
-
-				<mat-tab label="Add Purchase">
-					<app-add-purchase-form></app-add-purchase-form>
-				</mat-tab>
-
-				<mat-tab label="View Stock">
-					<app-stock></app-stock>
-				</mat-tab>
-
-				<mat-tab label="More">
-					<app-new-product-form></app-new-product-form>
-					<app-new-category-form></app-new-category-form>
-				</mat-tab>
-			</mat-tab-group> -->
 			<router-outlet></router-outlet>
 		</mat-sidenav-content>
 	</mat-sidenav-container>

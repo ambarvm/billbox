@@ -2,11 +2,9 @@ table {
 	width: 100%;
 }
 
-.container {
-	margin: 0px 30px 30px 30px;
-}
-
 mat-form-field {
-	margin: auto 30px;
-	width: calc(100% - 60px);
+	width: 100%;
+	max-width: 350px;
+	display: block;
+	margin-left: auto;
 }

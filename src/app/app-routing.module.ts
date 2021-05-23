@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard/';
 import { AddSaleFormComponent } from './home/add-sale-form/add-sale-form.component';
@@ -35,7 +34,7 @@ const routes: Routes = [
 		component: MorePageComponent,
 		...canActivate(redirectUnauthorizedToLogin),
 	},
-	{ path: '**', redirectTo: 'sale' },
+	{ path: '**', redirectTo: 'stock' },
 ];
 
 @NgModule({
