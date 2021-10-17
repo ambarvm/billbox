@@ -3,7 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@angular-devkit/build-angular': ~12.2.10
   '@angular/animations': ~12.2.10
-  '@angular/cdk': ~11.0.2
+  '@angular/cdk': ~12.2.10
   '@angular/cli': ~12.2.10
   '@angular/common': ~12.2.10
   '@angular/compiler': ~12.2.10
@@ -12,7 +12,7 @@ specifiers:
   '@angular/fire': ^7.1.0
   '@angular/forms': ~12.2.10
   '@angular/language-service': ~12.2.10
-  '@angular/material': ^11.0.2
+  '@angular/material': ^12.2.10
   '@angular/platform-browser': ~12.2.10
   '@angular/platform-browser-dynamic': ~12.2.10
   '@angular/router': ~12.2.10
@@ -49,7 +49,7 @@ dependencies:
 devDependencies:
   '@angular-devkit/build-angular': 12.2.10_fcfc8b9d9586d9637e8448f49f544a0c
   '@angular/animations': 12.2.10_@angular+core@12.2.10
-  '@angular/cdk': 11.0.2_37aae002c36f10ead6837864ed054ef4
+  '@angular/cdk': 12.2.10_527088122c50eeeef8cf9bccc5221d50
   '@angular/cli': 12.2.10
   '@angular/common': 12.2.10_@angular+core@12.2.10+rxjs@6.6.3
   '@angular/compiler': 12.2.10
@@ -57,7 +57,7 @@ devDependencies:
   '@angular/core': 12.2.10_rxjs@6.6.3+zone.js@0.11.4
   '@angular/forms': 12.2.10_395e591acc2c88aca13a3d3a3a5d7b1d
   '@angular/language-service': 12.2.10
-  '@angular/material': 11.0.2_e66915b8217b6ca62763d1680c72128a
+  '@angular/material': 12.2.10_b77996eb6df787892363f8741201afbb
   '@angular/platform-browser': 12.2.10_6af6c47ec9245df1b752195c3fb25d8a
   '@angular/platform-browser-dynamic': 12.2.10_b5d9ec009ace38beb22de4942df57df3
   '@angular/router': 12.2.10_395e591acc2c88aca13a3d3a3a5d7b1d
@@ -278,15 +278,17 @@ packages:
       tslib: 2.3.1
     dev: true
 
-  /@angular/cdk/11.0.2_37aae002c36f10ead6837864ed054ef4:
-    resolution: {integrity: sha512-hdZ9UJVGgCFhdOuB4RPS1Ku45VSG/WfRjbyxu/7teYyFKqAvcd3vawkeQfZf+lExmFaeW43+5hnpu/JIlGTrSA==}
+  /@angular/cdk/12.2.10_527088122c50eeeef8cf9bccc5221d50:
+    resolution: {integrity: sha512-jF/tyZXcAS0i11aH8061lMf/ofKs8U52smm/q7k5llTj/NvMZl4s6o3SmdYYE/ByljvCzObz+2j3TzJS/ioDFg==}
     peerDependencies:
-      '@angular/common': ^11.0.0 || ^12.0.0-0
-      '@angular/core': ^11.0.0 || ^12.0.0-0
+      '@angular/common': ^12.0.0 || ^13.0.0-0
+      '@angular/core': ^12.0.0 || ^13.0.0-0
+      rxjs: ^6.5.3 || ^7.0.0
     dependencies:
       '@angular/common': 12.2.10_@angular+core@12.2.10+rxjs@6.6.3
       '@angular/core': 12.2.10_rxjs@6.6.3+zone.js@0.11.4
-      tslib: 2.0.3
+      rxjs: 6.6.3
+      tslib: 2.3.1
     optionalDependencies:
       parse5: 5.1.1
     dev: true
@@ -462,21 +464,23 @@ packages:
     engines: {node: ^12.14.1 || >=14.0.0}
     dev: true
 
-  /@angular/material/11.0.2_e66915b8217b6ca62763d1680c72128a:
-    resolution: {integrity: sha512-qmLxrIcbbowXrE0+ZiGA/RXfaZTtVKtgLchn7GvI+R5DZ79g5IicTPxayzQavLJSTESX19JTjlByRSGiXJstgA==}
+  /@angular/material/12.2.10_b77996eb6df787892363f8741201afbb:
+    resolution: {integrity: sha512-iC0EA8ogpn/KJ+kr3TEfQJLYPAtrguMr21KAGwtKOOLng1HiEhH6qEqlc0PPYUUQ06i+8nJr/WWfL0ORKXh3fg==}
     peerDependencies:
-      '@angular/animations': ^11.0.0 || ^12.0.0-0
-      '@angular/cdk': 11.0.2
-      '@angular/common': ^11.0.0 || ^12.0.0-0
-      '@angular/core': ^11.0.0 || ^12.0.0-0
-      '@angular/forms': ^11.0.0 || ^12.0.0-0
+      '@angular/animations': ^12.0.0 || ^13.0.0-0
+      '@angular/cdk': 12.2.10
+      '@angular/common': ^12.0.0 || ^13.0.0-0
+      '@angular/core': ^12.0.0 || ^13.0.0-0
+      '@angular/forms': ^12.0.0 || ^13.0.0-0
+      rxjs: ^6.5.3 || ^7.0.0
     dependencies:
       '@angular/animations': 12.2.10_@angular+core@12.2.10
-      '@angular/cdk': 11.0.2_37aae002c36f10ead6837864ed054ef4
+      '@angular/cdk': 12.2.10_527088122c50eeeef8cf9bccc5221d50
       '@angular/common': 12.2.10_@angular+core@12.2.10+rxjs@6.6.3
       '@angular/core': 12.2.10_rxjs@6.6.3+zone.js@0.11.4
       '@angular/forms': 12.2.10_395e591acc2c88aca13a3d3a3a5d7b1d
-      tslib: 2.0.3
+      rxjs: 6.6.3
+      tslib: 2.3.1
     dev: true
 
   /@angular/platform-browser-dynamic/12.2.10_b5d9ec009ace38beb22de4942df57df3:
@@ -9374,6 +9378,7 @@ packages:
 
   /tslib/2.0.3:
     resolution: {integrity: sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ==}
+    dev: false
 
   /tslib/2.1.0:
     resolution: {integrity: sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==}
