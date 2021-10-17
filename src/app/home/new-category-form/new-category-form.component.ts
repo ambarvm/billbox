@@ -6,9 +6,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
 	selector: 'app-new-category-form',
 	templateUrl: './new-category-form.component.html',
-	styleUrls: ['./new-category-form.component.scss']
+	styleUrls: ['./new-category-form.component.scss'],
 })
-export class NewCategoryFormComponent implements OnInit {
+export class NewCategoryFormComponent {
 	newCategoryForm: FormGroup;
 	@ViewChild('form', { static: true }) form: NgForm;
 
@@ -18,18 +18,18 @@ export class NewCategoryFormComponent implements OnInit {
 		private snackbar: MatSnackBar
 	) {
 		this.newCategoryForm = fb.group({
-			name: ['', Validators.required]
+			name: ['', Validators.required],
 		});
 	}
 
-	ngOnInit() {}
-
 	async submitHandler() {
 		try {
-			await this.dataService.addNewCategory(this.newCategoryForm.get('name').value);
+			await this.dataService.addNewCategory(
+				this.newCategoryForm.get('name').value
+			);
 			console.log('successfully added category');
 			this.snackbar.open('New Category Added', 'Dismiss', {
-				duration: 2000
+				duration: 2000,
 			});
 			this.form.resetForm();
 		} catch (error) {

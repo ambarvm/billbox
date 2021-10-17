@@ -6,11 +6,13 @@ describe('NewProductFormComponent', () => {
 	let component: NewProductFormComponent;
 	let fixture: ComponentFixture<NewProductFormComponent>;
 
-	beforeEach(waitForAsync(() => {
-		TestBed.configureTestingModule({
-			declarations: [NewProductFormComponent]
-		}).compileComponents();
-	}));
+	beforeEach(
+		waitForAsync(() => {
+			TestBed.configureTestingModule({
+				declarations: [NewProductFormComponent],
+			}).compileComponents();
+		})
+	);
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(NewProductFormComponent);

@@ -6,11 +6,13 @@ describe('NewCategoryFormComponent', () => {
 	let component: NewCategoryFormComponent;
 	let fixture: ComponentFixture<NewCategoryFormComponent>;
 
-	beforeEach(waitForAsync(() => {
-		TestBed.configureTestingModule({
-			declarations: [NewCategoryFormComponent]
-		}).compileComponents();
-	}));
+	beforeEach(
+		waitForAsync(() => {
+			TestBed.configureTestingModule({
+				declarations: [NewCategoryFormComponent],
+			}).compileComponents();
+		})
+	);
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(NewCategoryFormComponent);

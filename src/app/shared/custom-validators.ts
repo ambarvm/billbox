@@ -8,7 +8,9 @@ export class CustomValidators {
 			if (
 				dataService.products.some(
 					({ category, name }) =>
-						prnt && category === prnt.get('category').value && name === control.value
+						prnt &&
+						category === prnt.get('category').value &&
+						name === control.value
 				)
 			) {
 				return null;
@@ -17,11 +19,15 @@ export class CustomValidators {
 		};
 	}
 
-	static duplicateProductValidator(formArray: FormArray): { [key: string]: boolean } | null {
+	static duplicateProductValidator(
+		formArray: FormArray
+	): { [key: string]: boolean } | null {
 		let valuesSoFar = Object.create(null);
 		for (let i = 0; i < formArray.length; i++) {
 			const element = formArray.at(i);
-			const productId = `${element.get('category').value}-${element.get('name').value}`;
+			const productId = `${element.get('category').value}-${
+				element.get('name').value
+			}`;
 			if (productId in valuesSoFar) {
 				return { duplicateProduct: true };
 			}

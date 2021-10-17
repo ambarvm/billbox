@@ -102,14 +102,9 @@
 					}
 				},
 				"lint": {
-					"builder": "@angular-devkit/build-angular:tslint",
+					"builder": "@angular-eslint/builder:lint",
 					"options": {
-						"tsConfig": [
-							"tsconfig.app.json",
-							"tsconfig.spec.json",
-							"e2e/tsconfig.json"
-						],
-						"exclude": ["**/node_modules/**"]
+						"lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
 					}
 				},
 				"e2e": {
@@ -130,6 +125,7 @@
 	"defaultProject": "billbox",
 	"cli": {
 		"packageManager": "pnpm",
-		"analytics": "1bbaa962-6a52-4958-a4fc-eafc1490c3d6"
+		"analytics": "1bbaa962-6a52-4958-a4fc-eafc1490c3d6",
+		"defaultCollection": "@angular-eslint/schematics"
 	}
 }

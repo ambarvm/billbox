@@ -30,7 +30,7 @@ import { MorePageComponent } from './home/more-page/more-page.component';
 		StockComponent,
 		AddPurchaseFormComponent,
 		LoginComponent,
-		MorePageComponent
+		MorePageComponent,
 	],
 	imports: [
 		CoreModule,
@@ -40,9 +40,11 @@ import { MorePageComponent } from './home/more-page/more-page.component';
 		BrowserAnimationsModule,
 		MaterialModule,
 		SharedModule,
-		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+		ServiceWorkerModule.register('ngsw-worker.js', {
+			enabled: environment.production,
+		}),
 	],
 	providers: [],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
 })
 export class AppModule {}
