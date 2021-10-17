@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import {
 	AngularFirestoreModule,
 	AngularFirestore,
-} from '@angular/fire/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
+} from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { environment } from '../../environments/environment';
 import { DataService } from './data.service';

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { User } from 'firebase/auth';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs';
 	providedIn: 'root',
 })
 export class AuthService {
-	user: Observable<firebase.User>;
+	user: Observable<User>;
 
 	constructor(private auth: AngularFireAuth, private router: Router) {
 		this.user = auth.user;
